@@ -50,30 +50,17 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2018-05-28T08:34:53.000Z"><a href="/2018/05/28/test/">2018-05-28</a></time>
+        <time datetime="2018-07-03T06:26:12.000Z"><a href="/2018/07/03/网易云歌词/">2018-07-03</a></time>
       
       
   
-    <h1 class="title"><a href="/2018/05/28/test/">Python如何获取某一文件夹下所有文件的存储路径</a></h1>
+    <h1 class="title"><a href="/2018/07/03/网易云歌词/">Python爬取网易云音乐歌词</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>#Python如何获取某一文件夹下所有文件的存储路径<br>本文采用os.walk()方法来获取指定文件夹下某类文件的存储路径。</p>
-<p>#语法<br>walk()方法的语法格式如下：<br><code>os.walk(top[,topdown=True[,onerror=None[,followlinks=False]]])</code></p>
-<p>#参数</p>
-<blockquote>
-<p><strong>top</strong> – 是所要遍历的目录的地址，返回的是一个三元组（root, dirs, files）。<br>root – 指当前正在遍历的文件夹本身的路径地址<br>dirs – 是一个list，内容是该文件夹中所有的目录的名字（不包括子目录）<br>files – 同样是一个list，内容是该文件夹下所有的文件（不包括子目录）<br><strong>topdown</strong> – 可选，为True，则优先遍历top目录，否则优先遍历topde子目录（默认为开启）。如果topdown参数为True，walk会遍历top文件夹，与top文件夹中每一个子目录。<br><strong>onerror</strong> – 可选，需要一个callable对象，当walk需要异常时，会调用。<br><strong>followlinks</strong> –可选，如果为True，则会遍历目录下的快捷方式实际所指的目录（默认关闭）</p>
-</blockquote>
-<p>#####实例<br>前两天爬取了网易云音乐说唱类四个歌单下所有歌曲的歌词，并用txt格式来存储，以歌曲名为文件名，如把爬取的歌词文件存到<code>E:\\music\\HipHop-Test</code>。<br>如果要对每首歌的歌词进行下一步处理的话，如分词、词性标注或韵律分析等，需要按文件路径读取每个歌词文件，即要读取<code>E:\\music\\HipHop-Test</code>文件夹下所有的txt文件，并返回文件路径。</p>
-<p>以下代码演示了walk()方法的使用：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">Created on 2018年5月11日</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@author: 32929</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">txt_dir</span><span class="params">(path)</span>:</span></span><br><span class="line">    txtDirLists=[]</span><br><span class="line">    <span class="keyword">for</span> root,dirs,files <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> os.path.splitext(name)[<span class="number">1</span>]==<span class="string">'.txt'</span>:</span><br><span class="line">                txtDirLists.append(os.path.join(root,name))</span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> dirs:</span><br><span class="line">            <span class="keyword">if</span> os.path.splitext(name)[<span class="number">1</span>]==<span class="string">'.txt'</span>:</span><br><span class="line">                txtDirLists.append(os.path.join(root,name))</span><br><span class="line">    <span class="keyword">return</span> txtDirLists        </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    file_path = <span class="string">'E:\\music\\HipHop-Test'</span>   </span><br><span class="line">    txt_dirs = txt_dir(file_path)</span><br><span class="line">    <span class="keyword">for</span> txt <span class="keyword">in</span> txt_dirs:</span><br><span class="line">        txt = txt.decode(<span class="string">'GBK'</span>)</span><br><span class="line">        <span class="keyword">print</span> txt</span><br></pre></td></tr></table></figure>
-<p>执行以上程序输出的结果为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">E:\music\HipHop-Test\想把你留在这里.txt</span><br><span class="line">E:\music\HipHop-Test\我们不熟.txt</span><br><span class="line">E:\music\HipHop-Test\我想REMIX.txt</span><br><span class="line">E:\music\HipHop-Test\我是歌手.txt</span><br><span class="line">E:\music\HipHop-Test\星爷.txt</span><br><span class="line">E:\music\HipHop-Test\有你的夏天.txt</span><br><span class="line">E:\music\HipHop-Test\有我在.txt</span><br><span class="line">E:\music\HipHop-Test\有模有样.txt</span><br><span class="line">E:\music\HipHop-Test\有点远.txt</span><br><span class="line">E:\music\HipHop-Test\未来日记.txt</span><br></pre></td></tr></table></figure>
-<p>如果想读取其他文件夹下的其他格式的文件路径，则需把<code>file_path =</code>后的文件路径换成你自己的文件夹路径，然后在<code>txt_dir</code>方法中把<code>.txt</code>换成其他格式，如可改成<code>.jpg</code>，则会获取文件夹下所有图片文件的路径。</p>
-<p>其实，今天之所以想把这个简单的方法写出来，是因为我新学了Markdown语法，写文章时再也不用花很多时间在排版上了啊哈哈哈哈！看以前发的关于编程的文章，凡是涉及到代码的，我要么是复制粘贴过来的，要么就是截图过来的，既不美观又费时间，但学了Markdown语法后，这些关于代码的图片都是自动生成的哈哈哈哈！</p>
-
+        <h4 id="大概是两个月前，"><a href="#大概是两个月前，" class="headerlink" title="大概是两个月前，"></a>大概是两个月前，</h4>
       
     </div>
     <footer>
@@ -95,25 +82,28 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2018-05-28T08:31:12.102Z"><a href="/2018/05/28/hello-world/">2018-05-28</a></time>
+        <time datetime="2018-05-28T08:34:53.000Z"><a href="/2018/05/28/test/">2018-05-28</a></time>
       
       
   
-    <h1 class="title"><a href="/2018/05/28/hello-world/">Hello World</a></h1>
+    <h1 class="title"><a href="/2018/05/28/test/">Python如何获取某一文件夹下所有文件的存储路径</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>本文采用os.walk()方法来获取指定文件夹下某类文件的存储路径。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>walk()方法的语法格式如下：<br><code>os.walk(top[,topdown=True[,onerror=None[,followlinks=False]]])</code></p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><blockquote>
+</blockquote>
+<p><strong>top</strong> :是所要遍历的目录的地址，返回的是一个三元组（root, dirs, files）。<br>root:指当前正在遍历的文件夹本身的路径地址<br>dirs:是一个list，内容是该文件夹中所有的目录的名字（不包括子目录）<br>files:同样是一个list，内容是该文件夹下所有的文件（不包括子目录）<br><strong>topdown</strong>:可选，为True，则优先遍历top目录，否则优先遍历topde子目录（默认为开启）。如果topdown参数为True，walk会遍历top文件夹，与top文件夹中每一个子目录。<br><strong>onerror</strong>:可选，需要一个callable对象，当walk需要异常时，会调用。<br><strong>followlinks</strong>:可选，如果为True，则会遍历目录下的快捷方式实际所指的目录（默认关闭）</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>前两天爬取了网易云音乐说唱类四个歌单下所有歌曲的歌词，并用txt格式来存储，以歌曲名为文件名，如把爬取的歌词文件存到<code>E:\\music\\HipHop-Test</code>。<br>如果要对每首歌的歌词进行下一步处理的话，如分词、词性标注或韵律分析等，需要按文件路径读取每个歌词文件，即要读取<code>E:\\music\\HipHop-Test</code>文件夹下所有的txt文件，并返回文件路径。</p>
+<p>以下代码演示了walk()方法的使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">Created on 2018年5月11日</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@author: 32929</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">txt_dir</span><span class="params">(path)</span>:</span></span><br><span class="line">    txtDirLists=[]</span><br><span class="line">    <span class="keyword">for</span> root,dirs,files <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> os.path.splitext(name)[<span class="number">1</span>]==<span class="string">'.txt'</span>:</span><br><span class="line">                txtDirLists.append(os.path.join(root,name))</span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> dirs:</span><br><span class="line">            <span class="keyword">if</span> os.path.splitext(name)[<span class="number">1</span>]==<span class="string">'.txt'</span>:</span><br><span class="line">                txtDirLists.append(os.path.join(root,name))</span><br><span class="line">    <span class="keyword">return</span> txtDirLists        </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    file_path = <span class="string">'E:\\music\\HipHop-Test'</span>   </span><br><span class="line">    txt_dirs = txt_dir(file_path)</span><br><span class="line">    <span class="keyword">for</span> txt <span class="keyword">in</span> txt_dirs:</span><br><span class="line">        txt = txt.decode(<span class="string">'GBK'</span>)</span><br><span class="line">        <span class="keyword">print</span> txt</span><br></pre></td></tr></table></figure>
+<p>执行以上程序输出的结果为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">E:\music\HipHop-Test\想把你留在这里.txt</span><br><span class="line">E:\music\HipHop-Test\我们不熟.txt</span><br><span class="line">E:\music\HipHop-Test\我想REMIX.txt</span><br><span class="line">E:\music\HipHop-Test\我是歌手.txt</span><br><span class="line">E:\music\HipHop-Test\星爷.txt</span><br><span class="line">E:\music\HipHop-Test\有你的夏天.txt</span><br><span class="line">E:\music\HipHop-Test\有我在.txt</span><br><span class="line">E:\music\HipHop-Test\有模有样.txt</span><br><span class="line">E:\music\HipHop-Test\有点远.txt</span><br><span class="line">E:\music\HipHop-Test\未来日记.txt</span><br></pre></td></tr></table></figure>
+<p>如果想读取其他文件夹下的其他格式的文件路径，则需把<code>file_path =</code>后的文件路径换成你自己的文件夹路径，然后在<code>txt_dir</code>方法中把<code>.txt</code>换成其他格式，如可改成<code>.jpg</code>，则会获取文件夹下所有图片文件的路径。</p>
+<p>其实，今天之所以想把这个简单的方法写出来，是因为我新学了Markdown语法，写文章时再也不用花很多时间在排版上了啊哈哈哈哈！看以前发的关于编程的文章，凡是涉及到代码的，我要么是复制粘贴过来的，要么就是截图过来的，既不美观又费时间，但学了Markdown语法后，这些关于代码的图片都是自动生成的哈哈哈哈！</p>
 
       
     </div>
@@ -147,6 +137,17 @@
   
 
   
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Python/">Python</a><small>1</small></li>
+  
+    <li><a href="/tags/爬虫，网易云音乐，歌词/">爬虫，网易云音乐，歌词</a><small>1</small></li>
+  
+  </ul>
+</div>
+
 </aside>
     <div class="clearfix"></div>
   </div>
